@@ -7,8 +7,7 @@ public class BusquedaTesoro {
 
 	public static char[][] tabla;
 
-	static Random rand = new Random();
-
+	
 	public int posI;
 	public int posJ;
 
@@ -19,7 +18,8 @@ public class BusquedaTesoro {
 		tabla = new char[x][y];
 		numObstaculos = (int) Math.sqrt(x * y) / 2;
 	}
-
+	
+	
 	public void inicializaTablero() {
 
 		for (int i = 0; i < tabla.length; i++) {
@@ -31,25 +31,25 @@ public class BusquedaTesoro {
 
 	public void pintaTablero() {
 
-		System.out.print(" ");
 		for (int j = 0; j < tabla[0].length; j++) {
-			System.out.print(j + " ");
+			System.out.print("\t" + j);
 		}
+
 		System.out.println();
 
 		for (int i = 0; i < tabla.length; i++) {
 
-			System.out.print(i + "  ");
+			System.out.print(i + "\t");
 
 			for (int j = 0; j < tabla[i].length; j++) {
 
 				if (tabla[i][j] == 'X') {
-					System.out.print("  ");
+					System.out.print("\t");
 				} else if (i == posI && j == posJ) {
-					System.out.print("J ");
+					System.out.print("J\t");
 
 				} else {
-					System.out.print(tabla[i][j] + " ");
+					System.out.print(tabla[i][j] + "\t");
 				}
 			}
 
@@ -61,21 +61,18 @@ public class BusquedaTesoro {
 
 		boolean colocado = false;
 
-		int posTesoroX = rand.nextInt(0, tabla.length);
-		int posTesoroY = rand.nextInt(0, tabla[0].length);
-
+		Random rand=new Random();
+		
 		while (!colocado) {
+			
+			int posTesoroX = rand.nextInt(0, tabla.length);
+			int posTesoroY = rand.nextInt(0, tabla[0].length);
 
 			if (tabla[posTesoroX][posTesoroY] == ' ') {
 
 				tabla[posTesoroX][posTesoroY] = 'X';
 
 				colocado = true;
-			} else {
-
-				posTesoroX = rand.nextInt(0, tabla.length);
-				posTesoroY = rand.nextInt(0, tabla[0].length);
-
 			}
 
 		}
@@ -86,6 +83,8 @@ public class BusquedaTesoro {
 
 		int obstaculosColocados = 0;
 
+		Random rand=new Random();
+		
 		int posObsX;
 		int posObsY;
 
@@ -108,12 +107,14 @@ public class BusquedaTesoro {
 
 	public void generaPosicionJugador() {
 
-		posI = rand.nextInt(0, tabla.length);
-		posJ = rand.nextInt(0, tabla[0].length);
-
 		boolean colocado = false;
 
+		Random rand=new Random();
+		
 		while (!colocado) {
+
+			posI = rand.nextInt(0, tabla.length);
+			posJ = rand.nextInt(0, tabla[0].length);
 
 			if (tabla[posI][posJ] == ' ') {
 
@@ -132,24 +133,50 @@ public class BusquedaTesoro {
 
 	public boolean mueveJugador(String movimiento) {
 
-		boolean movimientoValido;
+		boolean movimientoValido = true;
 
-		if(movimiento.equalsIgnoreCase("Izquierda") && posJ-1>=0 && tabla[posI][posJ-1]!='*') {
-			movimientoValido=true;
-			posJ--;
+		switch (movimiento.toUpperCase()) {
+
+		case "ARRIBA":
+
+			if (posI - 1 >= 0 && tabla[posI - 1][posJ] != '*') {
+				movimientoValido = true;
+				posI--;
+			}
+
+			break;
+
+		case "ABAJO":
+
+			if (posI + 1 < tabla.length && tabla[posI + 1][posJ] != '*') {
+				movimientoValido = true;
+				posI++;
+			}
+			break;
+
+		case "IZQUIERDA":
+
+			if (posJ - 1 >= 0 && tabla[posI][posJ - 1] != '*') {
+				movimientoValido = true;
+				posJ--;
+			}
+
+			break;
+
+		case "DERECHA":
+
+			if (posJ + 1 < tabla[0].length && tabla[posI][posJ + 1] != '*') {
+				movimientoValido = true;
+				posJ++;
+			}
+
+			break;
+
+		default:
 			
-		}
-		else if(movimiento.equalsIgnoreCase("Derecha") && posJ+1<tabla[0].length && tabla[posI][posJ+1]!='*'){
-			movimientoValido=true;
-			posJ++;
-		}
-		else if(movimiento.equalsIgnoreCase("Arriba") && posI-1>=0 && tabla[posI-1][posJ]!='*'){
-			movimientoValido=true;
-			posI--;
-		}
-		
-		 else {
 			movimientoValido = false;
+			
+			break;
 		}
 
 		return movimientoValido;
