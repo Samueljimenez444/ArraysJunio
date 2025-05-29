@@ -126,8 +126,10 @@ public class TresEnRaya {
 			}
 		}
 
+		contador=0; 
+		
 		for (int i = 0; i < tablero.length; i++) {
-			contador=0; 
+			
 			if (tablero[i][i] == caracter) {
 				contador++;
 			}

@@ -134,7 +134,7 @@ public class BusquedaTesoro {
 	public boolean mueveJugador(String movimiento) {
 
 		boolean movimientoValido = true;
-
+		
 		switch (movimiento.toUpperCase()) {
 
 		case "ARRIBA":

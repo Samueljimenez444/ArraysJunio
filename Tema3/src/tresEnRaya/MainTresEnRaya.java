@@ -20,9 +20,11 @@ public class MainTresEnRaya {
 		int posI;
 		int posJ;
 		
+		int inicial=tablero.jugadorInicial();
+		
 		do {
 			
-		if(tablero.jugadorInicial()==1) {
+		if(inicial==1) {
 			
 			tablero.mueveFichaAleatoria();
 			
@@ -45,6 +47,7 @@ public class MainTresEnRaya {
 				
 				tablero.reiniciaTablero();
 				
+				inicial=tablero.jugadorInicial();
 			}
 			
 			System.out.println("Introduce la posicion (Eje x)");
@@ -54,8 +57,16 @@ public class MainTresEnRaya {
 			posJ=lectura.nextInt();
 			
 			if(!tablero.usuarioMueveFicha(posI, posJ)) {
+				while(!tablero.usuarioMueveFicha(posI, posJ)) {
+				System.out.println("Posicion invalida, reintroduzca una posicion valida");
 				
-				System.out.println("Posicion invalida");
+				System.out.println("Introduce la posicion (Eje x)");
+				posI=lectura.nextInt();
+				
+				System.out.println("Introduce la posicion (Eje y)");
+				posJ=lectura.nextInt();
+				
+				}
 			}
 			
 			tablero.imprimeTablero();
@@ -71,6 +82,8 @@ public class MainTresEnRaya {
 				jugar=lectura.nextLine();
 				
 				tablero.reiniciaTablero();
+				
+				inicial=tablero.jugadorInicial();
 				
 			}
 			
@@ -87,8 +100,20 @@ public class MainTresEnRaya {
 			
 			
 			if(!tablero.usuarioMueveFicha(posI, posJ)) {
-				System.out.println("Posicion invalida");
+				System.out.println("Posicion invalida, introduzca una posicion valida");
+				
+				while(!tablero.usuarioMueveFicha(posI, posJ)) {
+					System.out.println("Posicion invalida, reintroduzca una posicion valida");
+					
+					System.out.println("Introduce la posicion (Eje x)");
+					posI=lectura.nextInt();
+					
+					System.out.println("Introduce la posicion (Eje y)");
+					posJ=lectura.nextInt();
+					
+					}
 			}
+			
 			
 			tablero.imprimeTablero();
 			
@@ -103,6 +128,8 @@ public class MainTresEnRaya {
 				jugar=lectura.nextLine();
 				
 				tablero.reiniciaTablero();
+				
+				inicial=tablero.jugadorInicial();
 			
 			}
 			
@@ -121,6 +148,8 @@ public class MainTresEnRaya {
 				jugar=lectura.nextLine();
 				
 				tablero.reiniciaTablero();
+				
+				inicial=tablero.jugadorInicial();
 			
 			}
 			
